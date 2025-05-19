@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slot Kapitäne - Bonus Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background: #f5f5f5;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #0f1424 0%, #1a1b4b 100%);
+            color: #fff;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            font-size: 24px;
+        }
+        
+        .logo span {
+            color: #8c5cf8;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav li {
+            margin-left: 20px;
+        }
+        
+        nav a {
+            color: #ccd6f6;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover, nav a.active {
+            color: #8c5cf8;
+        }
+        
+        .page-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            font-size: 24px;
+            color: #333;
+        }
+        
+        .btn {
+            background: #8c5cf8;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.3s;
+        }
+        
+        .btn:hover {
+            background: #7a4dd4;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        
+        .search-bar {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        
+        .search-bar input {
+            flex-grow: 1;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px 0 0 4px;
+            outline: none;
+        }
+        
+        .search-bar button {
+            background: #8c5cf8;
+            border: none;
+            padding: 0 15px;
+            color: white;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        th {
+            background: #f9fafb;
+            font-weight: 600;
+        }
+        
+        tbody tr:hover {
+            background: #f9fafb;
+        }
+        
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+        }
+        
+        .status-active {
+            background: #e6f7ee;
+            color: #0c622e;
+        }
+        
+        .status-inactive {
+            background: #fdecea;
+            color: #b71c1c;
+        }
+        
+        .action-icons {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .action-icons button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #666;
+            transition: color 0.3s;
+            padding: 4px;
+        }
+        
+        .action-icons button:hover {
+            color: #8c5cf8;
+        }
+        
+        /* Modal styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .modal {
+            background: white;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 500px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .modal-header {
+            padding: 15px 20px;
+            background: #f9fafb;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #666;
+        }
+        
+        .modal-body {
+            padding: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .form-control:focus {
+            border-color: #8c5cf8;
+            outline: none;
+        }
+        
+        .modal-footer {
+            padding: 15px 20px;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        
+        .btn-secondary {
+            background: #f5f5f5;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+        
+        .btn-secondary:hover {
+            background: #e5e5e5;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                margin-top: 10px;
+            }
+            
+            .page-title {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>Slot<span>Kapitäne</span></h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="dashboard.html" class="active">Bonusangebote</a></li>
+                        <li><a href="giveaway-management.html">Gewinnspiele</a></li>
+                        <li><a href="#"><i class="fas fa-sign-out-alt"></i> Abmelden</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="page-title">
+            <h1>Bonusangebote verwalten</h1>
+            <button class="btn" id="add-bonus-btn">
+                <i class="fas fa-plus"></i> Neues Bonusangebot
+            </button>
+        </div>
+        
+        <div class="search-bar">
+            <input type="text" placeholder="Bonusangebot suchen...">
+            <button><i class="fas fa-search"></i></button>
+        </div>
+        
+        <div class="card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Casino</th>
+                        <th>Bonus</th>
+                        <th>Bonuscode</th>
+                        <th>Start</th>
+                        <th>Ende</th>
+                        <th>Status</th>
+                        <th>Aktionen</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>SOL Casino</td>
+                        <td>200% bis 500€</td>
+                        <td>KAPITÄN</td>
+                        <td>15.04.2025</td>
+                        <td>15.06.2025</td>
+                        <td><span class="status-badge status-active">Aktiv</span></td>
+                        <td>
+                            <div class="action-icons">
+                                <button title="Bearbeiten"><i class="fas fa-edit"></i></button>
+                                <button title="Löschen"><i class="fas fa-trash-alt"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Drip Casino</td>
+                        <td>100% bis 300€ + 50 FS</td>
+                        <td>SOMMER25</td>
+                        <td>15.06.2025</td>
+                        <td>15.09.2025</td>
+                        <td><span class="status-badge status-inactive">Geplant</span></td>
+                        <td>
+                            <div class="action-icons">
+                                <button title="Bearbeiten"><i class="fas fa-edit"></i></button>
+                                <button title="Löschen"><i class="fas fa-trash-alt"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Jet Casino</td>
+                        <td>125% bis 200€</td>
+                        <td>GLÜCK25</td>
+                        <td>01.05.2025</td>
+                        <td>31.05.2025</td>
+                        <td><span class="status-badge status-active">Aktiv</span></td>
+                        <td>
+                            <div class="action-icons">
+                                <button title="Bearbeiten"><i class="fas fa-edit"></i></button>
+                                <button title="Löschen"><i class="fas fa-trash-alt"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Kapitän Casino</td>
+                        <td>150% bis 250€</td>
+                        <td>FRÜHLING</td>
+                        <td>15.03.2025</td>
+                        <td>15.04.2025</td>
+                        <td><span class="status-badge status-inactive">Abgelaufen</span></td>
+                        <td>
+                            <div class="action-icons">
+                                <button title="Bearbeiten"><i class="fas fa-edit"></i></button>
+                                <button title="Löschen"><i class="fas fa-trash-alt"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <!-- Modal für neues/Bearbeiten Bonusangebot -->
+    <div class="modal-overlay" id="bonus-modal" style="display: none;">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Bonusangebot hinzufügen</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Casino Name</label>
+                    <input type="text" class="form-control" placeholder="z.B. SOL Casino">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Bonus Beschreibung</label>
+                    <input type="text" class="form-control" placeholder="z.B. 200% bis 500€">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Bonuscode</label>
+                    <input type="text" class="form-control" placeholder="z.B. KAPITÄN">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Bonus-Features (durch Komma getrennt)</label>
+                    <input type="text" class="form-control" placeholder="z.B. Bis 8% Cashback, VIP Bonis, Sofortige Auszahlung">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Start Datum</label>
+                    <input type="date" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">End Datum</label>
+                    <input type="date" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Affiliate Link</label>
+                    <input type="text" class="form-control" placeholder="https://">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Status</label>
+                    <select class="form-control">
+                        <option value="active">Aktiv</option>
+                        <option value="planned">Geplant</option>
+                        <option value="expired">Abgelaufen</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancel-bonus">Abbrechen</button>
+                <button class="btn btn-primary" id="save-bonus">Speichern</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Modal öffnen/schließen
+        document.getElementById('add-bonus-btn').addEventListener('click', function() {
+            document.getElementById('bonus-modal').style.display = 'flex';
+        });
+        
+        document.querySelector('.modal-close').addEventListener('click', function() {
+            document.getElementById('bonus-modal').style.display = 'none';
+        });
+        
+        document.getElementById('cancel-bonus').addEventListener('click', function() {
+            document.getElementById('bonus-modal').style.display = 'none';
+        });
+        
+        // "Bearbeiten" Buttons
+        const editButtons = document.querySelectorAll('.fa-edit');
+        editButtons.forEach(button => {
+            button.closest('button').addEventListener('click', function() {
+                document.querySelector('.modal-title').textContent = 'Bonusangebot bearbeiten';
+                document.getElementById('bonus-modal').style.display = 'flex';
+                // Hier würden die Daten des zu bearbeitenden Bonusangebots geladen werden
+            });
+        });
+        
+        // Speichern-Button-Logik (hier nur Modal schließen)
+        document.getElementById('save-bonus').addEventListener('click', function() {
+            // Hier würde die Logik zum Speichern des Formulars implementiert werden
+            document.getElementById('bonus-modal').style.display = 'none';
+        });
+    </script>
+</body>
+</html>
