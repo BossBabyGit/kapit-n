@@ -410,14 +410,16 @@
         
         .bonus-header {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-start;
             align-items: center;
             margin-bottom: 15px;
-        }
-        
+            gap: 10px; 
+            }
+
         .bonus-header h3 {
             font-size: 22px;
             color: white;
+            margin-right: 10px;
         }
         
         .bonus-value {
@@ -475,6 +477,150 @@
             font-weight: 600;
         }
         
+        /* Bonus Info Section */
+        .info-toggle {
+            background: transparent;
+            color: var(--primary);
+            border: none;
+            margin-top: 15px;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: var(--transition);
+        }
+
+        .info-toggle:hover {
+            color: white;
+        }
+
+        .info-toggle svg {
+            transition: var(--transition);
+        }
+
+        .info-toggle.active svg {
+            transform: rotate(180deg);
+        }
+
+        .bonus-info-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .bonus-info-content .info-section {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: var(--border-radius);
+            padding: 25px;
+        }
+
+        .bonus-info-content h4 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .info-columns {
+            display: flex;
+            gap: 30px;
+        }
+
+        .info-column {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+            border: 1px solid var(--card-border);
+            padding: 20px;
+            margin-bottom: 25px;
+            flex: 1;
+        }
+
+        .info-column h5 {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .info-column p {
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .info-columns {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+
+        /* Features Box */
+        .features-box {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 25px;
+            border: 1px solid var(--card-border);
+        }
+
+        .features-box h5 {
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 15px;
+        }
+
+        .features-list li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .feature-icon {
+            color: var(--success);
+            flex-shrink: 0;
+            margin-top: 3px;
+        }
+
+        .disclaimer {
+            font-size: 13px;
+            color: var(--gray);
+            font-style: italic;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Payment Methods & License Images */
+        .payment-methods, .license-images {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .payment-methods img {
+            height: 25px;
+            width: auto;
+            border-radius: 4px;
+            object-fit: contain;
+        }
+
+        .license-images img {
+            height: 30px;
+            width: auto;
+            border-radius: 4px;
+            object-fit: contain;
+        }
+
+        @media (max-width: 768px) {
+            .payment-methods, .license-images {
+                justify-content: center;
+            }
+        }
         /* Features Section */
         .features-grid {
             display: grid;
@@ -482,46 +628,69 @@
             gap: 30px;
         }
         
-        .feature-card {
-            background: var(--card-bg);
+         /* Features Box */
+        .features-box {
+            background: rgba(0, 0, 0, 0.2);
             border-radius: var(--border-radius);
-            padding: 30px;
-            transition: var(--transition);
+            padding: 20px;
+            margin-bottom: 25px;
             border: 1px solid var(--card-border);
-            text-align: center;
         }
-        
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--shadow-lg);
-            border-color: rgba(108, 77, 246, 0.3);
+
+        .features-box h5 {
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: var(--primary);
         }
-        
-        .feature-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            border-radius: 16px;
+
+        .features-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .feature-item {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            background: rgba(255,255,255,0.05);
+            padding: 10px 12px;
+            border-radius: 6px;
+        }
+
+        .feature-item.full-width {
+            flex: 0 0 100%;
+            margin-bottom: 10px;
+        }
+
+        .check-icon {
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 20px;
+            flex-shrink: 0;
         }
-        
-        .feature-icon svg {
-            width: 30px;
-            height: 30px;
-        }
-        
-        .feature-card h3 {
-            font-size: 20px;
-            margin-bottom: 15px;
-            color: white;
-        }
-        
-        .feature-card p {
+
+        .disclaimer {
+            font-size: 13px;
             color: var(--gray);
-            font-size: 15px;
+            font-style: italic;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .features-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .feature-item {
+                width: 100%;
+            }
         }
         
         /* CTA Section */
@@ -977,91 +1146,78 @@
                         <div class="bonus-code">
                             Code: <span>KAPITÄN</span>
                         </div>
+                        <button class="info-toggle">
+                            Mehr Information
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M7 10L12 15L17 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
                     </div>
                 </div>
-                <div class="bonus-card">
-                    <div class="bonus-logo">
-                        <h2 style="color: white; font-size: 32px; font-weight: bold;">SOL Casino</h2>
-                    </div>
-                    <div class="bonus-content">
-                        <div class="bonus-header">
-                            <h3>SOL Casino</h3>
-                            <div class="bonus-value">200% BONUS BIS 500€</div>
+                <div class="bonus-info-content">
+                    <div class="info-section">
+                        <h4>Mehr Informationen</h4>
+                        
+                       
+                        <div class="features-box">
+                            <h5>Casino Features</h5>
+                            <div class="features-row">
+                                <div class="feature-item">
+                                    <span class="check-icon">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="#4CAF50"/>
+                                        </svg>
+                                    </span>
+                                    Bonus: 100% + bis zu 500 FS
+                                </div>
+                                <div class="feature-item">
+                                    <span class="check-icon">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="#4CAF50"/>
+                                        </svg>
+                                    </span>
+                                    + 3. Bonus: jeweils 75%
+                                </div>
+                                <div class="feature-item">
+                                    <span class="check-icon">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="#4CAF50"/>
+                                        </svg>
+                                    </span>
+                                    Einzahlung nochmal 50% on top
+                                </div>
+                            </div>
+                            <div class="feature-item full-width">
+                                <span class="check-icon">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="#4CAF50"/>
+                                    </svg>
+                                </span>
+                                100 extra Freispiele mit dem Code orangemorange
+                            </div>
+                            <p class="disclaimer">Bei Multiaccounts/Abuse können Bonis verweigert werden.</p>
                         </div>
-                        <ul class="bonus-features">
-                            <li>
-                                <span class="check-icon">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="#4CAF50"/>
-                                    </svg>
-                                </span>
-                                Bis 8% Echtgeld-Cashback wöchentlich
-                            </li>
-                            <li>
-                                <span class="check-icon">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="#4CAF50"/>
-                                    </svg>
-                                </span>
-                                Exklusive VIP Bonis verfügbar
-                            </li>
-                            <li>
-                                <span class="check-icon">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="#4CAF50"/>
-                                    </svg>
-                                </span>
-                                Sofortige Auszahlung garantiert
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="bonus-action">
-                        <a href="#" class="btn btn-primary pulse">Jetzt spielen</a>
-                        <div class="bonus-code">
-                            Code: <span>KAPITÄN</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="bonus-card">
-                    <div class="bonus-logo">
-                        <h2 style="color: white; font-size: 32px; font-weight: bold;">SOL Casino</h2>
-                    </div>
-                    <div class="bonus-content">
-                        <div class="bonus-header">
-                            <h3>SOL Casino</h3>
-                            <div class="bonus-value">200% BONUS BIS 500€</div>
-                        </div>
-                        <ul class="bonus-features">
-                            <li>
-                                <span class="check-icon">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="#4CAF50"/>
-                                    </svg>
-                                </span>
-                                Bis 8% Echtgeld-Cashback wöchentlich
-                            </li>
-                            <li>
-                                <span class="check-icon">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="#4CAF50"/>
-                                    </svg>
-                                </span>
-                                Exklusive VIP Bonis verfügbar
-                            </li>
-                            <li>
-                                <span class="check-icon">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="#4CAF50"/>
-                                    </svg>
-                                </span>
-                                Sofortige Auszahlung garantiert
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="bonus-action">
-                        <a href="#" class="btn btn-primary pulse">Jetzt spielen</a>
-                        <div class="bonus-code">
-                            Code: <span>KAPITÄN</span>
+                        
+                        <div class="info-columns">
+                            <div class="info-column">
+                                <h5>Zahlungsmethode</h5>
+                                <div class="payment-methods">
+                                    <img src="https://via.placeholder.com/60x40/6C4DF6/FFFFFF?text=VISA" alt="VISA">
+                                    <img src="https://via.placeholder.com/60x40/6C4DF6/FFFFFF?text=MC" alt="Mastercard">
+                                    <img src="https://via.placeholder.com/60x40/6C4DF6/FFFFFF?text=PP" alt="PayPal">
+                                    <img src="https://via.placeholder.com/60x40/6C4DF6/FFFFFF?text=SK" alt="Skrill">
+                                    <img src="https://via.placeholder.com/60x40/6C4DF6/FFFFFF?text=BC" alt="Bank Transfer">
+                                    <img src="https://via.placeholder.com/60x40/6C4DF6/FFFFFF?text=CRYPTO" alt="Cryptocurrency">
+                                </div>
+                            </div>
+                            <div class="info-column">
+                                <h5>Casino Lizenzen</h5>
+                                <div class="license-images">
+                                    <img src="https://via.placeholder.com/80x40/6C4DF6/FFFFFF?text=MGA" alt="MGA License">
+                                    <img src="https://via.placeholder.com/80x40/6C4DF6/FFFFFF?text=CURACAO" alt="Curacao License">
+                                    <img src="https://via.placeholder.com/80x40/6C4DF6/FFFFFF?text=UKGC" alt="UKGC License">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1262,6 +1418,22 @@
                         navLinks.classList.remove('active');
                     }
                 });
+            });
+        });
+
+        document.querySelectorAll('.info-toggle').forEach(toggle => {
+            toggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                this.classList.toggle('active');
+                
+                const infoContent = this.closest('.bonus-card').nextElementSibling;
+                if (infoContent.classList.contains('bonus-info-content')) {
+                    if (infoContent.style.maxHeight) {
+                        infoContent.style.maxHeight = null;
+                    } else {
+                        infoContent.style.maxHeight = infoContent.scrollHeight + 'px';
+                    }
+                }
             });
         });
     </script>
